@@ -1,1 +1,3 @@
-<Solution />
+<Solution>
+  <Project Path="Crud_Inventario/Crud_Inventario.csproj" />
+</Solution>

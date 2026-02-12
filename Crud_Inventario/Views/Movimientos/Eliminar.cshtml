@@ -1,0 +1,75 @@
+﻿@model Crud_Inventario.Models.MovInventario
+
+@{
+    ViewBag.Title = "Eliminar Movimiento";
+}
+
+<h2>Eliminar Movimiento</h2>
+
+<div class="alert alert-danger">
+    <h4>¿Está seguro que desea eliminar este movimiento?</h4>
+    <p>Esta acción no se puede deshacer.</p>
+</div>
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h4>Información del Movimiento a Eliminar</h4>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>@Html.DisplayNameFor(model => model.COD_CIA)</dt>
+            <dd>@Html.DisplayFor(model => model.COD_CIA)</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.COMPANIA_VENTA_3)</dt>
+            <dd>@Html.DisplayFor(model => model.COMPANIA_VENTA_3)</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.ALMACEN_VENTA)</dt>
+            <dd>@Html.DisplayFor(model => model.ALMACEN_VENTA)</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.TIPO_MOVIMIENTO)</dt>
+            <dd>@Html.DisplayFor(model => model.TIPO_MOVIMIENTO)</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.TIPO_DOCUMENTO)</dt>
+            <dd>@Html.DisplayFor(model => model.TIPO_DOCUMENTO)</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.NRO_DOCUMENTO)</dt>
+            <dd>@Html.DisplayFor(model => model.NRO_DOCUMENTO)</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.COD_ITEM_2)</dt>
+            <dd>@Html.DisplayFor(model => model.COD_ITEM_2)</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.PROVEEDOR)</dt>
+            <dd>@(Model.PROVEEDOR ?? "-")</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.ALMACEN_DESTINO)</dt>
+            <dd>@(Model.ALMACEN_DESTINO ?? "-")</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.CANTIDAD)</dt>
+            <dd>@(Model.CANTIDAD?.ToString() ?? "-")</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.FECHA_TRANSACCION)</dt>
+            <dd>@(Model.FECHA_TRANSACCION?.ToString("dd/MM/yyyy") ?? "-")</dd>
+        </dl>
+    </div>
+</div>
+
+@using (Html.BeginForm("Eliminar", "Movimientos", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("codCia", Model.COD_CIA)
+    @Html.Hidden("companiaVenta", Model.COMPANIA_VENTA_3)
+    @Html.Hidden("almacenVenta", Model.ALMACEN_VENTA)
+    @Html.Hidden("tipoMovimiento", Model.TIPO_MOVIMIENTO)
+    @Html.Hidden("tipoDocumento", Model.TIPO_DOCUMENTO)
+    @Html.Hidden("nroDocumento", Model.NRO_DOCUMENTO)
+    @Html.Hidden("codItem", Model.COD_ITEM_2)
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-danger">
+            <i class="glyphicon glyphicon-trash"></i> Confirmar Eliminación
+        </button>
+        <a href="@Url.Action("Index")" class="btn btn-default">
+            <i class="glyphicon glyphicon-arrow-left"></i> Cancelar
+        </a>
+    </div>
+}

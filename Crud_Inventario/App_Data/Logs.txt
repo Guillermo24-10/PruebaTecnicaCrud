@@ -1,0 +1,2 @@
+[18:52:09] Consulta exitosa: 2 registros-
+[18:52:31] Consulta exitosa: 1 registros-

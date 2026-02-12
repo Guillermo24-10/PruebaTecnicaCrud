@@ -1,0 +1,153 @@
+﻿@model List<Crud_Inventario.Models.MovInventario>
+
+@{
+    ViewBag.Title = "Movimientos de Inventario";
+}
+
+<h2>Movimientos de Inventario</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @TempData["Error"]
+    </div>
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Filtros de Búsqueda</h4>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Index", "Movimientos", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                <label>Fecha Inicio:</label>
+                <input type="date" name="fechaInicio" class="form-control" value="@ViewBag.FechaInicio" />
+            </div>
+
+            <div class="form-group">
+                <label>Fecha Fin:</label>
+                <input type="date" name="fechaFin" class="form-control" value="@ViewBag.FechaFin" />
+            </div>
+
+            <div class="form-group">
+                <label>Tipo Movimiento:</label>
+                <input type="text" name="tipoMovimiento" class="form-control" value="@ViewBag.TipoMovimiento" maxlength="2" />
+            </div>
+
+            <div class="form-group">
+                <label>Nro. Documento:</label>
+                <input type="text" name="nroDocumento" class="form-control" value="@ViewBag.NroDocumento" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="glyphicon glyphicon-search"></i> Buscar
+            </button>
+
+            <a href="@Url.Action("Index")" class="btn btn-default">
+                <i class="glyphicon glyphicon-refresh"></i> Limpiar
+            </a>
+        }
+    </div>
+</div>
+
+<p>
+    <a href="@Url.Action("Crear")" class="btn btn-success">
+        <i class="glyphicon glyphicon-plus"></i> Crear Nuevo Movimiento
+    </a>
+</p>
+
+<div class="table-responsive">
+    <table class="table-striped table-bordered table-hover table">
+        <thead>
+            <tr>
+                <th>Código CIA</th>
+                <th>Compañía Venta</th>
+                <th>Almacén Venta</th>
+                <th>Tipo Movimiento</th>
+                <th>Tipo Documento</th>
+                <th>Nro. Documento</th>
+                <th>Código Item</th>
+                <th>Cantidad</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.COD_CIA</td>
+                        <td>@item.COMPANIA_VENTA_3</td>
+                        <td>@item.ALMACEN_VENTA</td>
+                        <td>@item.TIPO_MOVIMIENTO</td>
+                        <td>@item.TIPO_DOCUMENTO</td>
+                        <td>@item.NRO_DOCUMENTO</td>
+                        <td>@item.COD_ITEM_2</td>
+                        <td>@item.CANTIDAD</td>
+                        <td>@(item.FECHA_TRANSACCION?.ToString("dd/MM/yyyy") ?? "-")</td>
+                        <td>
+                            <a href="@Url.Action("Detalle", new {
+                                codCia = item.COD_CIA,
+                                companiaVenta = item.COMPANIA_VENTA_3,
+                                almacenVenta = item.ALMACEN_VENTA,
+                                tipoMovimiento = item.TIPO_MOVIMIENTO,
+                                tipoDocumento = item.TIPO_DOCUMENTO,
+                                nroDocumento = item.NRO_DOCUMENTO,
+                                codItem = item.COD_ITEM_2
+                            })" class="btn btn-info btn-sm">
+                                <i class="glyphicon glyphicon-eye-open"></i> Ver
+                            </a>
+                            <a href="@Url.Action("Editar", new {
+                                codCia = item.COD_CIA,
+                                companiaVenta = item.COMPANIA_VENTA_3,
+                                almacenVenta = item.ALMACEN_VENTA,
+                                tipoMovimiento = item.TIPO_MOVIMIENTO,
+                                tipoDocumento = item.TIPO_DOCUMENTO,
+                                nroDocumento = item.NRO_DOCUMENTO,
+                                codItem = item.COD_ITEM_2
+                            })" class="btn btn-warning btn-sm">
+                                <i class="glyphicon glyphicon-edit"></i> Editar
+                            </a>
+                            <a href="@Url.Action("Eliminar", new {
+                                codCia = item.COD_CIA,
+                                companiaVenta = item.COMPANIA_VENTA_3,
+                                almacenVenta = item.ALMACEN_VENTA,
+                                tipoMovimiento = item.TIPO_MOVIMIENTO,
+                                tipoDocumento = item.TIPO_DOCUMENTO,
+                                nroDocumento = item.NRO_DOCUMENTO,
+                                codItem = item.COD_ITEM_2
+                            })" class="btn btn-danger btn-sm">
+                                <i class="glyphicon glyphicon-trash"></i> Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="10" class="text-center">No se encontraron registros</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="alert alert-info">
+        <strong>Total de registros:</strong> @Model.Count
+    </div>
+}
