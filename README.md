@@ -1,3 +1,3 @@
-SE USO :
+# SE USO :
 # .NET FRAMEWORK 4.8
 # SQL SERVER
